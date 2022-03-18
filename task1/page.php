@@ -97,17 +97,17 @@
         </tbody>
     </table>
 
-    <?php if(isset($rows) && isset($cols)):?>
-        <form method="POST" action="index.php">
-            <!-- строки  -->
-            <input type="hidden" name="rows" value="<?=$rows?>">
-            <!-- колонки -->
-            <input type="hidden" name="cols" value="<?=$cols?>">
-            <!-- массив в строке -->
-            <input type="hidden" name="arr" value="<?=htmlspecialchars($arr_encode)?>">
-            <!-- тип запроса -->
-            <input type="hidden" name="act" value="max_arr">
-            <button type="submit" class="btn btn-primary mb-2">Найти наибольшее</button>
-        </form>
-    <?php endif;?>
 </div>  
+<?php if(isset($rows) && isset($cols)):?>
+    <form method="POST" action="index.php">
+        <!-- строки  -->
+        <input type="hidden" name="rows" value="<?=$rows?>">
+        <!-- колонки -->
+        <input type="hidden" name="cols" value="<?=$cols?>">
+        <!-- массив в строке -->
+        <input type="hidden" name="arr" value="<?=htmlspecialchars($arr_encode)?>">
+        <!-- тип запроса -->
+        <input type="hidden" name="act" value="max_arr">
+        <button type="submit" class="btn btn-primary mb-2">Найти наибольшее</button>
+    </form>
+<?php endif;?>
