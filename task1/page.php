@@ -27,6 +27,9 @@
         $cols = $_POST["cols"];
         //массив из строки
         $arr = json_decode($_POST["arr"], false);
+
+        //если повторное нажатие
+        $arr_encode = json_encode($arr);
         
         //поиск наибольшего
         $bigger = 0;
