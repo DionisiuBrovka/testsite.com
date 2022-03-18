@@ -44,3 +44,6 @@ body {
     min-width: 130px;
 }
 
+.table-responsive {
+    margin-bottom: 10px;
+}
