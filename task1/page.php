@@ -1,6 +1,6 @@
 <?php
-    //если генирируем новые значение, то post запрос
-    if ($_SERVER["REQUEST_METHOD"]=="POST" && isset($_POST["rows"]) && isset($_POST["cols"])){
+    //если генирируем новые значение:
+    if ($_SERVER["REQUEST_METHOD"]=="POST" && isset($_POST["rows"]) && isset($_POST["cols"]) && $_POST["act"]=="new_arr"){
 
         //значение строк и колонок для инпутов
         $rows = $_POST["rows"];
@@ -16,17 +16,17 @@
             $arr[] = $newarray;
         }
 
-        //массив в куки монстра
-        setcookie('monster_arr', json_encode($arr), time()+3600);
+        //массив в строку
+        $arr_encode = json_encode($arr);
     }
 
-    //если ищем наибольшее, то get запрос
-    if ($_SERVER["REQUEST_METHOD"]=="GET"){
+    //если ищем наибольшее:
+    if ($_SERVER["REQUEST_METHOD"]=="POST" && $_POST["act"]=="max_arr"){
         //все теже значение строк и колонок для инпутов
-        $rows = $_GET["rows"];
-        $cols = $_GET["cols"];
-        //массив из куки монстра
-        $arr = json_decode($_COOKIE['monster_arr'], false);
+        $rows = $_POST["rows"];
+        $cols = $_POST["cols"];
+        //массив из строки
+        $arr = json_decode($_POST["arr"], false);
         
         //поиск наибольшего
         $bigger = 0;
@@ -52,6 +52,8 @@
         <label for="cols-count" class="label-form col-form-label">Число столбцов </label>
         <input name="cols" type="number" min="1" max="25" class="form-control" id="cols-count" placeholder="от 1 до 25" value="<?=$cols?>">
     </div>
+    <!-- тип запроса -->
+    <input type="hidden" name="act" value="new_arr">
     <button type="submit" class="btn btn-primary mb-2">Выполнить</button>
 </form>
 
@@ -93,11 +95,15 @@
     </table>
 
     <?php if(isset($rows) && isset($cols)):?>
-        <form method="get" action="index.php">
+        <form method="POST" action="index.php">
             <!-- строки  -->
             <input type="hidden" name="rows" value="<?=$rows?>">
             <!-- колонки -->
             <input type="hidden" name="cols" value="<?=$cols?>">
+            <!-- массив в строке -->
+            <input type="hidden" name="arr" value="<?=htmlspecialchars($arr_encode)?>">
+            <!-- тип запроса -->
+            <input type="hidden" name="act" value="max_arr">
             <button type="submit" class="btn btn-primary mb-2">Найти наибольшее</button>
         </form>
     <?php endif;?>
